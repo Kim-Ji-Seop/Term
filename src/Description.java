@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Description extends JLabel {
-    Description(){
+    public Description(){
         setPreferredSize(new Dimension(30,70));
         setHorizontalAlignment(JLabel.CENTER);
         setFont(new Font("Cascadia Mono",Font.BOLD,30));

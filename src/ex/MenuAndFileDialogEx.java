@@ -39,6 +39,10 @@ public class MenuAndFileDialogEx extends JFrame {
             FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg","gif");
             chooser.setFileFilter(filter);
             int ret = chooser.showOpenDialog(null);
+            int a = chooser.showSaveDialog(null);
+            String path = chooser.getSelectedFile().getPath();
+            String name = chooser.getSelectedFile().getName();
+
             if(ret != JFileChooser.APPROVE_OPTION){
                 JOptionPane.showMessageDialog(null,"파일을 선택하지 않았습니다","경고",JOptionPane.WARNING_MESSAGE);
                 return;
