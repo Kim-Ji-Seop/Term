@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Menu extends JPanel {
     JButton[] menuButton = new JButton[5];
+    BackCardView backCardView = new BackCardView();
     public Menu() {
         InitMenuLabelData();
         buttonPressEffect();
