@@ -7,34 +7,49 @@ public class Main extends JFrame {
         Menu menu = new Menu();
         MidPanel mid = new MidPanel();
         String str;
-        JPopupMenu popup = new JPopupMenu();
-        JMenuItem add;
-        JMenuItem delete;
-        int key;
+        JPopupMenu popup = new JPopupMenu(); //팝업 객체
+        JMenuItem add; // 팝업 안에 들어갈 추가 아이템
+        JMenuItem delete; // 삭제아이템
+        int key; // 팝업으로 추가 / 삭제를 눌렀을 때, 5개의 메뉴중에서 어디 메뉴를 선택했는지에 대한 key값이다. 이 값에 따라 추가,삭제함수로 분기된다.
         Main(){
             setTitle("Term Project");
             setBackground(Color.WHITE);
             setLayout(new BorderLayout(0,0));
-            add(menu, BorderLayout.WEST);
+            add(menu, BorderLayout.WEST);          // 이 프레임엔 메뉴 패널, 타이틀라벨, 미드 패널이 존재한다.
             add(label.title,BorderLayout.NORTH);
             add(mid,BorderLayout.CENTER);
-            setResizable(false);
+            setResizable(false);         //프레임의 크기를 고정한다.
             setLocation(600, 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(590, 500);
         setVisible(true);
-        menuAndPanel();
-        popupInit();
-        popupAndPhoto();
-        addListener();
+        menuAndPanel();//메뉴와 미드패널간의 리스너에 대한 반응을 정의한 함수.
+        popupInit();//팝업을 초기화한 함수.
+        popupAndPhoto();//마우스 우클릭 -> 팝업메뉴나타남을 구현.
+        addListener();//키보드 리스너를 등록한 함수다. 방향키 좌우로 화면을 넘길 수 있게 구현했음. shoulder부분은 예외임. 안넘어가게 해놨음.
     }
-    void addDialog(){
-        String addPhotoName = JOptionPane.showInputDialog("어떤 사진으로 추가(수정)하시겠습니까?");
-        mid.pane.backs.addPhoto(addPhotoName);
-
+    void addDialog(){//다이얼로그를 띄운다.
+        String addPhotoName = JOptionPane.showInputDialog("어떤 사진으로 추가하시겠습니까?(운동명을 적어주세요)");// 여기서 적은 문자열을 각 메뉴의 addPhoto함수의 인자로 넣는다.
+        if(key == 0){                                                                                    // 문자열.jpg의 상위디렉토리 path를 따로 파싱하여 경로를 추가하고 삭제한다.
+            mid.pane.backs.addPhoto(addPhotoName);
+            mid.descript.setText("");
+        }else if(key == 1){
+            System.out.println(addPhotoName);
+            mid.pane.chests.addPhoto(addPhotoName);
+            mid.descript.setText("");
+        }else if(key == 2){
+            mid.pane.shoulders.addPhoto(addPhotoName);
+            mid.descript.setText("");
+        }else if(key == 3){
+            mid.pane.legs.addPhoto(addPhotoName);
+            mid.descript.setText("");
+        }else{
+            mid.pane.arms.addPhoto(addPhotoName);
+            mid.descript.setText("");
+        }
     }
-    void deleteDialog(){
-        String deletePhotoName = JOptionPane.showInputDialog("어떤 사진을 삭제하시겠습니까?");
+    void deleteDialog(){//삭제 다이얼로그
+        String deletePhotoName = JOptionPane.showInputDialog("어떤 사진을 삭제하시겠습니까?(운동명을 적어주세요)");
         if(key == 0){
             mid.pane.backs.deletePhoto(deletePhotoName);
             mid.descript.setText("");
@@ -69,7 +84,6 @@ public class Main extends JFrame {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if((e.getModifiersEx() & InputEvent.BUTTON3_DOWN_MASK) != 0){
-                            //mid.pane.backs.back[1].buttons[1].requestFocus();
                             key = 0;
                             popup.show(mid.pane.backs.back[finalI].buttons[finalJ],e.getX(),e.getY());
                         }
@@ -85,7 +99,6 @@ public class Main extends JFrame {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if((e.getModifiersEx() & InputEvent.BUTTON3_DOWN_MASK) != 0){
-                            //mid.pane.backs.back[1].buttons[1].requestFocus();
                             key = 1;
                             popup.show(mid.pane.chests.chest[finalI].buttons[finalJ],e.getX(),e.getY());
                         }
@@ -143,10 +156,9 @@ public class Main extends JFrame {
         menu.menuButton[0].addActionListener(e -> {
             str = e.getActionCommand();
 
-            //mid.pane.backs.requestFocus();
             if( str.equals("Back")) {
                 mid.pane.card.show(mid.pane,"등");
-                mid.pane.backs.requestFocus();
+                mid.pane.backs.requestFocus();           //키보드와 마우스리스너에는 requestFocus()함수가 있어야함. 해당 컴포넌트의 포커싱이 중요하기 때문이다.
             }
         });
         menu.menuButton[1].addActionListener(e -> {
@@ -178,16 +190,16 @@ public class Main extends JFrame {
             }
         });
     }
-    void addListener(){
+    void addListener(){   // 키보드리스너를 구현해놨다.
         mid.pane.backs.requestFocus();
         mid.pane.backs.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                if(keyCode == KeyEvent.VK_LEFT){
+                if(keyCode == KeyEvent.VK_LEFT){ //키보드 좌방향키
                     mid.pane.backs.card.show(mid.pane.backs,"0");
                 }
-                if(keyCode == KeyEvent.VK_RIGHT){
+                if(keyCode == KeyEvent.VK_RIGHT){//키보드 우방향키
                     mid.pane.backs.card.show(mid.pane.backs,"1");
                 }
             }

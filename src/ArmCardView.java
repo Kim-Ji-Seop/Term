@@ -1,4 +1,4 @@
-import ex.ImageList;
+import ImagePathStorage.ImageList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,37 @@ public class ArmCardView extends JPanel {
         subPanelInit();
         Init();
     }
+    void addPhoto(String str){
+        for(int i=0;i<arm.length;i++){
+            for(int j=0;j<arm[i].buttons.length;j++){
+                try{
+                    if(imageList.imagePathsArm.get(j+i*6).replace("images\\arm\\","").equals(str+".jpg")){
+                        armList.add(count,imageList.imagePathsArm.get(j+i*6));
+                        armDescript.add(count,imageList.descriptsArm.get(j+i*6));
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        try{
+            for(int i=0;i<arm.length;i++){
+                for(int j=0;j<arm[i].buttons.length;j++){
+                    try{
+                        arm[i].buttons[j].setIcon(new ImageIcon(armList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){}
+        count=0;
+        for (String s : armList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count > 6){
+            add(arm[1],"1");
+            card.show(this,"1");
+        }
+    }
     void deletePhoto(String str){
         for(int i=0;i<arm.length;i++){
             for(int j=0;j<arm[i].buttons.length;j++){
@@ -25,7 +56,6 @@ public class ArmCardView extends JPanel {
                     if(armList.get(j+i*6).replace("images\\arm\\","").equals(str+".jpg")){
                         armList.remove(j+i*6);
                         armDescript.remove(j+i*6);
-                        System.out.println(armList.size());
                     }
                 }catch (Exception ignored){}
             }
@@ -48,7 +78,7 @@ public class ArmCardView extends JPanel {
         }catch (Exception ignored){
 
         }
-        if(++count == 7){
+        if(count == 6){
             remove(arm[1]);
         }
     }

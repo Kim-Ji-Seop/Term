@@ -1,19 +1,19 @@
-package ex;
+package ImagePathStorage;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ImageList {
-    public List<String> imagePathsBack = new ArrayList<>();
+    public List<String> imagePathsBack = new ArrayList<>(); //외부 images폴더에 있는 이미지파일들의 각 경로를 String타입의 어레이리스트로 저장한다. 추가와 삭제가 용이할 것이라 생각하여 이렇게 구현함.
     public List<String> imagePathsChest = new ArrayList<>();
     public List<String> imagePathsShoulder = new ArrayList<>();
     public List<String> imagePathsLeg = new ArrayList<>();
     public List<String> imagePathsArm = new ArrayList<>();
-    File file = new File("images"); // images파일 기준의 file변수
-    File[] subfiles = file.listFiles();//file의 하위 경로를 subfiles에 담는다.
-    File[] sub1 = new File[5];//경로를 저장해둘 배열 변수를 선언한다.
-    File[] sub2;//sub1의 listFiles를 넣을 변수를 선언한다.
+    File file = new File("images");                // images파일 기준의 file변수
+    File[] subfiles = file.listFiles();                     //file의 하위 경로를 subfiles에 담는다.
+    File[] sub1 = new File[5];                             //경로를 저장해둘 배열 변수를 선언한다.
+    File[] sub2;                                            //sub1의 listFiles를 넣을 변수를 선언한다.
     public List<String> descriptsBack = new ArrayList<>();
     public List<String> descriptsChest = new ArrayList<>();
     public List<String> descriptsShoulder = new ArrayList<>();
@@ -44,7 +44,7 @@ public class ImageList {
             }
         }
     }
-    public void descriptInit(){//사진에 대한 설명을 리스트에 저장하는 함수
+    public void descriptInit(){                                                 //사진에 대한 설명을 리스트에 저장하는 함수
         //등운동 설명리스트 -------------------------------------------------------------------------------------------
         descriptsBack.add("데드리프트 - 코어에 힘을 주어 바벨을 수직으로 들어올리는 운동");
         descriptsBack.add("렛풀다운 - 케이블을 수직으로 내려 등에 자극을 주는 운동");

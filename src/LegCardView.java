@@ -1,4 +1,4 @@
-import ex.ImageList;
+import ImagePathStorage.ImageList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,37 @@ public class LegCardView extends JPanel{
         setLayout(card);
         subPanelInit();
         Init();
+    }
+    void addPhoto(String str){
+        for(int i=0;i<leg.length;i++){
+            for(int j=0;j<leg[i].buttons.length;j++){
+                try{
+                    if(imageList.imagePathsLeg.get(j+i*6).replace("images\\leg\\","").equals(str+".jpg")){
+                        legList.add(count,imageList.imagePathsLeg.get(j+i*6));
+                        legDescript.add(count,imageList.descriptsLeg.get(j+i*6));
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        try{
+            for(int i=0;i<leg.length;i++){
+                for(int j=0;j<leg[i].buttons.length;j++){
+                    try{
+                        leg[i].buttons[j].setIcon(new ImageIcon(legList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){}
+        count=0;
+        for (String s : legList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count > 6){
+            add(leg[1],"1");
+            card.show(this,"1");
+        }
     }
     void deletePhoto(String str){
         for(int i=0;i<leg.length;i++){
@@ -47,7 +78,7 @@ public class LegCardView extends JPanel{
         }catch (Exception ignored){
 
         }
-        if(++count == 7){
+        if(count == 6){
             remove(leg[1]);
         }
     }
@@ -85,15 +116,6 @@ public class LegCardView extends JPanel{
                     legDescript.add("");
                 }
             }
-        }
-        count=0;
-        for (String s : legList) {
-            if (!s.equals("")) {
-                count++;
-            }
-        }
-        if(++count == 7){
-            remove(leg[1]);
         }
     }
     void Init(){

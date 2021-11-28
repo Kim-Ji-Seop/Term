@@ -1,4 +1,4 @@
-import ex.ImageList;
+import ImagePathStorage.ImageList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +18,37 @@ public class ChestCardView extends JPanel {
         subPanelInit();
         Init();
     }
+    void addPhoto(String str){
+        for(int i=0;i<chest.length;i++){
+            for(int j=0;j<chest[i].buttons.length;j++){
+                try{
+                    if(imageList.imagePathsChest.get(j+i*6).replace("images\\chest\\","").equals(str+".jpg")){
+                        chestList.add(count,imageList.imagePathsChest.get(j+i*6));
+                        chestDescript.add(count,imageList.descriptsChest.get(j+i*6));
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        try{
+            for(int i=0;i<chest.length;i++){
+                for(int j=0;j<chest[i].buttons.length;j++){
+                    try{
+                        chest[i].buttons[j].setIcon(new ImageIcon(chestList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){}
+        count=0;
+        for (String s : chestList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count > 6){
+            add(chest[1],"1");
+            card.show(this,"1");
+        }
+    }
     void deletePhoto(String str) {
         for (int i = 0; i < chest.length; i++) {
             for (int j = 0; j < chest[i].buttons.length; j++) {
@@ -25,7 +56,6 @@ public class ChestCardView extends JPanel {
                     if (chestList.get(j + i * 6).replace("images\\chest\\", "").equals(str + ".jpg")) {
                         chestList.remove(j + i * 6);
                         chestDescript.remove(j + i * 6);
-                        System.out.println(chestList.size());
                     }
                 } catch (Exception ignored) {
                 }
@@ -34,9 +64,11 @@ public class ChestCardView extends JPanel {
         count = 0;
         for (String s : chestList) {
             if (!s.equals("")) {
-                //System.out.println(s.equals(""));
                 count++;
             }
+        }
+        if(count == 6){
+            remove(chest[1]);
         }
 
         try {
@@ -51,9 +83,7 @@ public class ChestCardView extends JPanel {
         } catch (Exception ignored) {
 
         }
-        if(++count == 7){
-            remove(chest[1]);
-        }
+
     }
     void subPanelInit(){
         for(int i=0;i<chest.length;i++){

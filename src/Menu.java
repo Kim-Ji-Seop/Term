@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.AttributedCharacterIterator;
-import java.util.Map;
 
 public class Menu extends JPanel {
     JButton[] menuButton = new JButton[5];

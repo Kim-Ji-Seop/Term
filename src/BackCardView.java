@@ -1,4 +1,4 @@
-import ex.ImageList;
+import ImagePathStorage.ImageList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,16 +18,40 @@ public class BackCardView extends JPanel {
         subPanelInit();
         Init();
     }
+
     void addPhoto(String str){
         for(int i=0;i<back.length;i++){
             for(int j=0;j<back[i].buttons.length;j++){
-                if(imageList.imagePathsBack.get(j+i*6).replace("images\\back\\","").equals(str+".jpg")){
-                    backList.add(imageList.imagePathsBack.get(j+i*6));
-                    backDescript.add(imageList.descriptsBack.get(j+i*6));
-                }
+                try{
+                    if(imageList.imagePathsBack.get(j+i*6).replace("images\\back\\","").equals(str+".jpg")){
+                        backList.add(count,imageList.imagePathsBack.get(j+i*6));
+                        backDescript.add(count,imageList.descriptsBack.get(j+i*6));
+                    }
+                }catch (Exception ignored){}
             }
         }
+        try{
+            for(int i=0;i<back.length;i++){
+                for(int j=0;j<back[i].buttons.length;j++){
+                    try{
+                        back[i].buttons[j].setIcon(new ImageIcon(backList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){}
+        count=0;
+        for (String s : backList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count > 6){
+            add(back[1],"1");
+            card.show(this,"1");
+        }
     }
+
+
     void deletePhoto(String str){
         for(int i=0;i<back.length;i++){
             for(int j=0;j<back[i].buttons.length;j++){
@@ -35,19 +59,10 @@ public class BackCardView extends JPanel {
                     if(backList.get(j+i*6).replace("images\\back\\","").equals(str+".jpg")){
                         backList.remove(j+i*6);
                         backDescript.remove(j+i*6);
-                        System.out.println(backList.size());
                     }
                 }catch (Exception ignored){}
             }
         }
-        count=0;
-        for (String s : backList) {
-            if (!s.equals("")) {
-                count++;
-                System.out.println(count);
-            }
-        }
-
         try{
             for(int i=0;i<back.length;i++){
                 for(int j=0;j<back[i].buttons.length;j++){
@@ -59,7 +74,13 @@ public class BackCardView extends JPanel {
         }catch (Exception ignored){
 
         }
-        if(++count == 7){
+        count=0;
+        for (String s : backList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count == 6){
             remove(back[1]);
         }
 

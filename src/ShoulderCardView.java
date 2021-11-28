@@ -1,4 +1,4 @@
-import ex.ImageList;
+import ImagePathStorage.ImageList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +19,37 @@ public class ShoulderCardView extends JPanel {
         subPanelInit();
         Init();
     }
+    void addPhoto(String str){
+        for(int i=0;i<shoulder.length;i++){
+            for(int j=0;j<shoulder[i].buttons.length;j++){
+                try{
+                    if(imageList.imagePathsShoulder.get(j+i*6).replace("images\\shoulder\\","").equals(str+".jpg")){
+                        shoulderList.add(count,imageList.imagePathsShoulder.get(j+i*6));
+                        shoulderDescript.add(count,imageList.descriptsShoulder.get(j+i*6));
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        try{
+            for(int i=0;i<shoulder.length;i++){
+                for(int j=0;j<shoulder[i].buttons.length;j++){
+                    try{
+                        shoulder[i].buttons[j].setIcon(new ImageIcon(shoulderList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){}
+        count=0;
+        for (String s : shoulderList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(count > 6){
+            add(shoulder[1],"1");
+            card.show(this,"1");
+        }
+    }
     void deletePhoto(String str){
         for(int i=0;i<shoulder.length;i++){
             for(int j=0;j<shoulder[i].buttons.length;j++){
@@ -33,7 +64,7 @@ public class ShoulderCardView extends JPanel {
         count=0;
         for (String s : shoulderList) {
             if (!s.equals("")) {
-                ++count;
+                count++;
             }
         }
 
@@ -48,7 +79,7 @@ public class ShoulderCardView extends JPanel {
         }catch (Exception ignored){
 
         }
-        if(++count == 7){
+        if(count == 6){
             remove(shoulder[1]);
         }
     }
@@ -95,7 +126,7 @@ public class ShoulderCardView extends JPanel {
                 count++;
             }
         }
-        if(++count == 7){
+        if(count == 6){
             remove(shoulder[1]);
         }
     }
