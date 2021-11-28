@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Menu extends JPanel {
     JButton[] menuButton = new JButton[5];
-    BackCardView backCardView = new BackCardView();
+    MidPanel midPanel = new MidPanel();
     public Menu() {
         InitMenuLabelData();
         buttonPressEffect();
@@ -19,21 +19,22 @@ public class Menu extends JPanel {
             menuButton[i].setOpaque(true);
             menuButton[i].setHorizontalAlignment(SwingConstants.CENTER);//가운데정렬
             menuButton[i].setBackground(Color.WHITE);
-            menuButton[i].setFont(new Font(Font.MONOSPACED,Font.BOLD,20));
-            menuButton[i].setBorder(BorderFactory.createEmptyBorder(0,20,0,20));
+            menuButton[i].setFont(new Font(Font.MONOSPACED,Font.BOLD,15));
+            menuButton[i].setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
             add(menuButton[i]);
         }
-        menuButton[0].setText("등");
-        menuButton[1].setText("가슴");
-        menuButton[2].setText("어깨");
-        menuButton[3].setText("하체");
-        menuButton[4].setText("팔");
+        menuButton[0].setText("Back");
+        menuButton[1].setText("Chest");
+        menuButton[2].setText("Shoulder");
+        menuButton[3].setText("Leg");
+        menuButton[4].setText("Arm");
     }
     public void buttonPressEffect(){
         menuButton[0].addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                midPanel.pane.backs.requestFocus();
                 menuButton[0] = (JButton)e.getSource();
                 menuButton[0].setForeground(Color.RED);
             }
@@ -41,6 +42,7 @@ public class Menu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
+                midPanel.pane.backs.requestFocus();
                 menuButton[0] = (JButton)e.getSource();
                 menuButton[0].setForeground(Color.BLACK);
             }

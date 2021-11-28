@@ -1,31 +1,107 @@
+import ex.ImageList;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShoulderCardView extends JPanel {
+    int MAX=2;
+    int count=0;
+    List<String> shoulderList = new ArrayList<>();
+    List<String> shoulderDescript = new ArrayList<>();
     CardLayout card = new CardLayout();
-    GridPanel shoulder = new GridPanel();
+    ImageList imageList = new ImageList();
+    GridPanel[] shoulder = new GridPanel[MAX];
+
     ShoulderCardView(){
         setLayout(card);
         subPanelInit();
         Init();
     }
+    void deletePhoto(String str){
+        for(int i=0;i<shoulder.length;i++){
+            for(int j=0;j<shoulder[i].buttons.length;j++){
+                try{
+                    if(shoulderList.get(j+i*6).replace("images\\shoulder\\","").equals(str+".jpg")){
+                        shoulderList.remove(j+i*6);
+                        shoulderDescript.remove(j+i*6);
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        count=0;
+        for (String s : shoulderList) {
+            if (!s.equals("")) {
+                ++count;
+            }
+        }
+
+        try{
+            for(int i=0;i<shoulder.length;i++){
+                for(int j=0;j<shoulder[i].buttons.length;j++){
+                    try{
+                        shoulder[i].buttons[j].setIcon(new ImageIcon(shoulderList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){
+
+        }
+        if(++count == 7){
+            remove(shoulder[1]);
+        }
+    }
     void subPanelInit(){
+        for(int i=0;i<shoulder.length;i++){
+            shoulder[i] = new GridPanel();
+        }
         //////////////////////////////////////////////////////////////////////////////////////
-       shoulder.button  = new JButton(new ImageIcon("images\\shoulder\\덤벨숄더프레스.jpg"));
-       shoulder.button1 = new JButton(new ImageIcon("images\\shoulder\\벤트오버레터럴레이즈.jpg"));
-       shoulder.button2 = new JButton(new ImageIcon("images\\shoulder\\업라이트로우.jpg"));
-       shoulder.button3 = new JButton(new ImageIcon("images\\shoulder\\오버헤드프레스.jpg"));
-       shoulder.button4 = new JButton(new ImageIcon("images\\shoulder\\사이드레터럴레이즈.jpg"));
-       shoulder.button5 = new JButton(new ImageIcon("images\\shoulder\\프런트레이즈.jpg"));
-       shoulder.add(shoulder.button);
-       shoulder.add(shoulder.button1);
-       shoulder.add(shoulder.button2);
-       shoulder.add(shoulder.button3);
-       shoulder.add(shoulder.button4);
-       shoulder.add(shoulder.button5);
+        for(int i=0;i<shoulder.length;i++){
+            for(int j=0;j<shoulder[i].buttons.length;j++){
+                try{
+                    shoulderList.add(imageList.imagePathsShoulder.get(j+i*6));
+                }catch (Exception e){
+                    shoulderList.add("");
+                }
+            }
+        }
+
+        for(int i=0;i<shoulder.length;i++){
+            for(int j=0;j<shoulder[i].buttons.length;j++){
+                try{
+                    shoulder[i].buttons[j] = new JButton(new ImageIcon(shoulderList.get(j+i*6)));
+                    shoulder[i].add(shoulder[i].buttons[j]);
+                }catch (Exception e){
+                    shoulder[i].buttons[j] = new JButton("");
+                    shoulder[i].add(shoulder[i].buttons[j]);
+                }
+
+            }
+        }
+
+        for(int i=0;i<shoulder.length;i++){
+            for(int j=0;j<shoulder[i].buttons.length;j++){
+                try{
+                    shoulderDescript.add(imageList.descriptsShoulder.get(j+i*6));
+                }catch (Exception e){
+                    shoulderDescript.add("");
+                }
+            }
+        }
+        count=0;
+        for (String s : shoulderList) {
+            if (!s.equals("")) {
+                count++;
+            }
+        }
+        if(++count == 7){
+            remove(shoulder[1]);
+        }
     }
     void Init(){
-        add(shoulder,"0");
+        add(shoulder[0],"0");
+        add(shoulder[1],"1");
         card.show(this,"0");
     }
 }

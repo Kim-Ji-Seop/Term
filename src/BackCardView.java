@@ -1,48 +1,114 @@
+import ex.ImageList;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BackCardView extends JPanel {
+    int MAX=2;
+    int count=0;
+    ImageList imageList = new ImageList();
+    List<String> backList = new ArrayList<>();
+    List<String> backDescript = new ArrayList<>();
     CardLayout card = new CardLayout();
-    GridPanel[] back = new GridPanel[2];
+    GridPanel[] back = new GridPanel[MAX];
     BackCardView(){
         setLayout(card);
         subPanelInit();
         Init();
     }
-    void subPanelInit(){
-        for(int i=0;i<2;i++){
+    void addPhoto(String str){
+        for(int i=0;i<back.length;i++){
+            for(int j=0;j<back[i].buttons.length;j++){
+                if(imageList.imagePathsBack.get(j+i*6).replace("images\\back\\","").equals(str+".jpg")){
+                    backList.add(imageList.imagePathsBack.get(j+i*6));
+                    backDescript.add(imageList.descriptsBack.get(j+i*6));
+                }
+            }
+        }
+    }
+    void deletePhoto(String str){
+        for(int i=0;i<back.length;i++){
+            for(int j=0;j<back[i].buttons.length;j++){
+                try{
+                    if(backList.get(j+i*6).replace("images\\back\\","").equals(str+".jpg")){
+                        backList.remove(j+i*6);
+                        backDescript.remove(j+i*6);
+                        System.out.println(backList.size());
+                    }
+                }catch (Exception ignored){}
+            }
+        }
+        count=0;
+        for (String s : backList) {
+            if (!s.equals("")) {
+                count++;
+                System.out.println(count);
+            }
+        }
+
+        try{
+            for(int i=0;i<back.length;i++){
+                for(int j=0;j<back[i].buttons.length;j++){
+                    try{
+                        back[i].buttons[j].setIcon(new ImageIcon(backList.get(j+i*6)));
+                    }catch (Exception ignored){}
+                }
+            }
+        }catch (Exception ignored){
+
+        }
+        if(++count == 7){
+            remove(back[1]);
+        }
+
+    }
+    public void subPanelInit(){
+        for(int i=0;i<back.length;i++){
             back[i] = new GridPanel();
         }
-        //////////////////////////////////////////////////////////////////////////////////////
-        back[0].button  = new JButton(new ImageIcon("images\\back\\데드리프트.jpg"));
-        back[0].button1 = new JButton(new ImageIcon("images\\back\\렛풀다운.jpg"));
-        back[0].button2 = new JButton(new ImageIcon("images\\back\\바벨로우.jpg"));
-        back[0].button3 = new JButton(new ImageIcon("images\\back\\시티드로우.jpg"));
-        back[0].button4 = new JButton(new ImageIcon("images\\back\\원암덤벨로우.jpg"));
-        back[0].button5 = new JButton(new ImageIcon("images\\back\\케이블 풀오버.jpg"));
-        back[0].add(back[0].button);
-        back[0].add(back[0].button1);
-        back[0].add(back[0].button2);
-        back[0].add(back[0].button3);
-        back[0].add(back[0].button4);
-        back[0].add(back[0].button5);
-        //////////////////////////////////////////////////////////////////////////////////////
-        back[1].button  = new JButton(new ImageIcon("images\\back\\티바로우.jpg"));
-        back[1].button1 = new JButton(new ImageIcon("images\\back\\풀업.jpg"));
-        back[1].button2 = new JButton(new ImageIcon(""));
-        back[1].button3 = new JButton(new ImageIcon(""));
-        back[1].button4 = new JButton(new ImageIcon(""));
-        back[1].button5 = new JButton(new ImageIcon(""));
-        back[1].add(back[1].button);
-        back[1].add(back[1].button1);
-        back[1].add(back[1].button2);
-        back[1].add(back[1].button3);
-        back[1].add(back[1].button4);
-        back[1].add(back[1].button5);
+
+        for(int i=0;i<back.length;i++){
+            for(int j=0;j<back[i].buttons.length;j++){
+                try{
+                    backList.add(imageList.imagePathsBack.get(j+i*6));
+                }catch (Exception e){
+                    backList.add("");
+                }
+            }
+        }
+
+        for(int i=0;i<back.length;i++){
+            for(int j=0;j<back[i].buttons.length;j++){
+                try{
+                    back[i].buttons[j] = new JButton(new ImageIcon(backList.get(j+i*6)));
+                    back[i].add(back[i].buttons[j]);
+                }catch (Exception e){
+                    back[i].buttons[j] = new JButton("");
+                    back[i].add(back[i].buttons[j]);
+                }
+
+            }
+        }
+
+        for(int i=0;i<back.length;i++){
+            for(int j=0;j<back[i].buttons.length;j++){
+                try{
+                    backDescript.add(imageList.descriptsBack.get(j+i*6));
+                }catch (Exception e){
+                    backDescript.add("");
+                }
+            }
+        }
+
     }
     void Init(){
         add(back[0],"0");
         add(back[1],"1");
         card.show(this,"0");
     }
+
+
+
 }
