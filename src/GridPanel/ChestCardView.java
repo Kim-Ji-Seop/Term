@@ -1,3 +1,6 @@
+package GridPanel;
+
+import GridPanel.GridPanel;
 import ImagePathStorage.ImageList;
 
 import javax.swing.*;
@@ -8,17 +11,17 @@ import java.util.List;
 public class ChestCardView extends JPanel {
     int MAX=2;
     int count=0;
-    CardLayout card = new CardLayout();
-    GridPanel[] chest = new GridPanel[MAX];
-    ImageList imageList = new ImageList();
-    List<String> chestList = new ArrayList<>();
-    List<String> chestDescript = new ArrayList<>();
-    ChestCardView(){
+    public CardLayout card = new CardLayout();
+    public GridPanel[] chest = new GridPanel[MAX];
+    public ImageList imageList = new ImageList();
+    public List<String> chestList = new ArrayList<>();
+    public List<String> chestDescript = new ArrayList<>();
+    public ChestCardView(){
         setLayout(card);
         subPanelInit();
         Init();
     }
-    void addPhoto(String str){
+    public void addPhoto(String str){
         for(int i=0;i<chest.length;i++){
             for(int j=0;j<chest[i].buttons.length;j++){
                 try{
@@ -49,7 +52,7 @@ public class ChestCardView extends JPanel {
             card.show(this,"1");
         }
     }
-    void deletePhoto(String str) {
+    public void deletePhoto(String str) {
         for (int i = 0; i < chest.length; i++) {
             for (int j = 0; j < chest[i].buttons.length; j++) {
                 try {
@@ -85,7 +88,7 @@ public class ChestCardView extends JPanel {
         }
 
     }
-    void subPanelInit(){
+    public void subPanelInit(){
         for(int i=0;i<chest.length;i++){
             chest[i] = new GridPanel();
         }
@@ -122,7 +125,7 @@ public class ChestCardView extends JPanel {
             }
         }
     }
-    void Init(){
+    public void Init(){
         add(chest[0],"0");
         add(chest[1],"1");
         card.show(this,"0");

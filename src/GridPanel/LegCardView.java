@@ -1,3 +1,5 @@
+package GridPanel;
+
 import ImagePathStorage.ImageList;
 
 import javax.swing.*;
@@ -8,17 +10,17 @@ import java.util.List;
 public class LegCardView extends JPanel{
     int MAX=2;
     int count=0;
-    java.util.List<String> legList = new ArrayList<>();
-    List<String> legDescript = new ArrayList<>();
-    CardLayout card = new CardLayout();
-    GridPanel[] leg = new GridPanel[MAX];
-    ImageList imageList = new ImageList();
-    LegCardView(){
+    public List<String> legList = new ArrayList<>();
+    public List<String> legDescript = new ArrayList<>();
+    public CardLayout card = new CardLayout();
+    public GridPanel[] leg = new GridPanel[MAX];
+    public ImageList imageList = new ImageList();
+    public LegCardView(){
         setLayout(card);
         subPanelInit();
         Init();
     }
-    void addPhoto(String str){
+    public void addPhoto(String str){
         for(int i=0;i<leg.length;i++){
             for(int j=0;j<leg[i].buttons.length;j++){
                 try{
@@ -49,7 +51,7 @@ public class LegCardView extends JPanel{
             card.show(this,"1");
         }
     }
-    void deletePhoto(String str){
+    public void deletePhoto(String str){
         for(int i=0;i<leg.length;i++){
             for(int j=0;j<leg[i].buttons.length;j++){
                 try{
@@ -82,7 +84,7 @@ public class LegCardView extends JPanel{
             remove(leg[1]);
         }
     }
-    void subPanelInit(){
+    public void subPanelInit(){
         for(int i=0;i<leg.length;i++){
             leg[i] = new GridPanel();
         }
@@ -118,7 +120,7 @@ public class LegCardView extends JPanel{
             }
         }
     }
-    void Init(){
+    public void Init(){
         add(leg[0],"0");
         add(leg[1],"1");
         card.show(this,"0");

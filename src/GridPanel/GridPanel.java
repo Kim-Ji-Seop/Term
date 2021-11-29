@@ -1,15 +1,17 @@
+package GridPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 
 
 public class GridPanel extends JPanel {
-    JButton[] buttons = new JButton[6];
+    public JButton[] buttons = new JButton[6];
 
-    GridPanel(){
+    public GridPanel(){
         gridPanelInit();
     }
-    void gridPanelInit(){
+    public void gridPanelInit(){
         for(int i=0;i<buttons.length;i++){
             buttons[i] = new JButton();
         }

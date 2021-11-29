@@ -4,7 +4,6 @@ import java.awt.event.*;
 
 public class Menu extends JPanel {
     JButton[] menuButton = new JButton[5];
-    MidPanel midPanel = new MidPanel();
     public Menu() {
         InitMenuLabelData();
         buttonPressEffect();
@@ -32,7 +31,6 @@ public class Menu extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                midPanel.pane.backs.requestFocus();
                 menuButton[0] = (JButton)e.getSource();
                 menuButton[0].setForeground(Color.RED);
             }
@@ -40,7 +38,6 @@ public class Menu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                midPanel.pane.backs.requestFocus();
                 menuButton[0] = (JButton)e.getSource();
                 menuButton[0].setForeground(Color.BLACK);
             }

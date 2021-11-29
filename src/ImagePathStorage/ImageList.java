@@ -23,7 +23,7 @@ public class ImageList {
         filePathInList();
         descriptInit();
     }
-    void filePathInList() {//외부 폴더의 경로를 저장하여 사진을 리스트에 저장하는 함수
+    public void filePathInList() {//외부 폴더의 경로를 저장하여 사진을 리스트에 저장하는 함수
         for (int i = 0; i < subfiles.length; i++) {
             sub1[i] = new File(subfiles[i].getPath());
             sub2 = sub1[i].listFiles();

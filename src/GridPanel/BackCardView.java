@@ -1,3 +1,5 @@
+package GridPanel;
+
 import ImagePathStorage.ImageList;
 
 import javax.swing.*;
@@ -8,18 +10,18 @@ import java.util.List;
 public class BackCardView extends JPanel {
     int MAX=2;
     int count=0;
-    ImageList imageList = new ImageList();
-    List<String> backList = new ArrayList<>();
-    List<String> backDescript = new ArrayList<>();
-    CardLayout card = new CardLayout();
-    GridPanel[] back = new GridPanel[MAX];
-    BackCardView(){
+    public ImageList imageList = new ImageList();
+    public List<String> backList = new ArrayList<>();
+    public List<String> backDescript = new ArrayList<>();
+    public CardLayout card = new CardLayout();
+    public GridPanel[] back = new GridPanel[MAX];
+    public BackCardView(){
         setLayout(card);
         subPanelInit();
         Init();
     }
 
-    void addPhoto(String str){
+    public void addPhoto(String str){
         for(int i=0;i<back.length;i++){
             for(int j=0;j<back[i].buttons.length;j++){
                 try{
@@ -52,7 +54,7 @@ public class BackCardView extends JPanel {
     }
 
 
-    void deletePhoto(String str){
+    public void deletePhoto(String str){
         for(int i=0;i<back.length;i++){
             for(int j=0;j<back[i].buttons.length;j++){
                 try{
@@ -124,7 +126,7 @@ public class BackCardView extends JPanel {
         }
 
     }
-    void Init(){
+    public void Init(){
         add(back[0],"0");
         add(back[1],"1");
         card.show(this,"0");

@@ -3,23 +3,23 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Main extends JFrame {
-        TitleLabel label = new TitleLabel();
-        Menu menu = new Menu();
-        MidPanel mid = new MidPanel();
-        String str;
-        JPopupMenu popup = new JPopupMenu(); //팝업 객체
-        JMenuItem add; // 팝업 안에 들어갈 추가 아이템
-        JMenuItem delete; // 삭제아이템
-        int key; // 팝업으로 추가 / 삭제를 눌렀을 때, 5개의 메뉴중에서 어디 메뉴를 선택했는지에 대한 key값이다. 이 값에 따라 추가,삭제함수로 분기된다.
-        Main(){
-            setTitle("Term Project");
-            setBackground(Color.WHITE);
-            setLayout(new BorderLayout(0,0));
-            add(menu, BorderLayout.WEST);          // 이 프레임엔 메뉴 패널, 타이틀라벨, 미드 패널이 존재한다.
-            add(label.title,BorderLayout.NORTH);
-            add(mid,BorderLayout.CENTER);
-            setResizable(false);         //프레임의 크기를 고정한다.
-            setLocation(600, 100);
+    TitleLabel label = new TitleLabel();
+    Menu menu = new Menu();
+    MidPanel mid = new MidPanel();
+    String str;
+    JPopupMenu popup = new JPopupMenu(); //팝업 객체
+    JMenuItem add; // 팝업 안에 들어갈 추가 아이템
+    JMenuItem delete; // 삭제아이템
+    int key; // 팝업으로 추가 / 삭제를 눌렀을 때, 5개의 메뉴중에서 어디 메뉴를 선택했는지에 대한 key값이다. 이 값에 따라 추가,삭제함수로 분기된다.
+    Main(){
+        setTitle("Term Project");
+        setBackground(Color.WHITE);
+        setLayout(new BorderLayout(0,0));
+        add(menu, BorderLayout.WEST);          // 이 프레임엔 메뉴 패널, 타이틀라벨, 미드 패널이 존재한다.
+        add(label.title,BorderLayout.NORTH);
+        add(mid,BorderLayout.CENTER);
+        setResizable(false);         //프레임의 크기를 고정한다.
+        setLocation(600, 100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(590, 500);
         setVisible(true);
@@ -68,8 +68,8 @@ public class Main extends JFrame {
         }
     }
     void popupInit(){
-        add = new JMenuItem("추가(수정)");
-        delete = new JMenuItem("삭제");
+        add = new JMenuItem("사진 추가");
+        delete = new JMenuItem("사진 삭제");
         add.addActionListener(e -> addDialog());
         delete.addActionListener(e -> deleteDialog());
         popup.add(add);
